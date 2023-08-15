@@ -21,3 +21,5 @@ class AuthErrorState extends AuthStates {
   @override
   List<Object> get props => [error];
 }
+
+class AuthOtpVerifiedState extends AuthStates {}

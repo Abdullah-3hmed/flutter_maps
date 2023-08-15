@@ -9,7 +9,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<void> submitPhoneNumber({required String phoneNumber}) async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: '+2',
+      phoneNumber: '+2$phoneNumber',
       //timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
       verificationFailed: verificationFailed,
@@ -49,7 +49,10 @@ class AuthCubit extends Cubit<AuthStates> {
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
       await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (error) {}
+      emit(AuthOtpVerifiedState());
+    } catch (error) {
+      debugPrint(error.toString());
+    }
   }
 
   Future<void> logOut() async {

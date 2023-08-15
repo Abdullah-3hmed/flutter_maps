@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_maps/business_logic/phone_auth/auth_cubit.dart';
 import 'package:flutter_maps/business_logic/phone_auth/auth_state.dart';
 import 'package:flutter_maps/presentation/screens/otp_screen.dart';
+import 'package:flutter_maps/presentation/widgets/custom_elevated_button.dart';
 import 'package:flutter_maps/utils/colors.dart';
 import 'package:flutter_maps/utils/functions/get_country_flag.dart';
 import 'package:flutter_maps/utils/functions/show_dialog.dart';
@@ -143,31 +144,18 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(
                     height: 70.0,
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        showCircularProgressIndicator(context: context);
-                        if (formKey.currentState!.validate()) {
-                          Navigator.pop(context);
-                          context.read<AuthCubit>().submitPhoneNumber(phoneNumber: phoneController.text);
-                        } else {
-                          Navigator.pop(context);
-                          return;
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(110.0, 50.0),
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                      ),
-                      child: const Text(
-                        "Next",
-                        style: TextStyle(fontSize: 16.0, color: Colors.white),
-                      ),
-                    ),
+                  CustomElevatedButton(
+                    text: "Next",
+                    onPressed: () {
+                      showCircularProgressIndicator(context: context);
+                      if (formKey.currentState!.validate()) {
+                        Navigator.pop(context);
+                        context.read<AuthCubit>().submitPhoneNumber(phoneNumber: phoneController.text);
+                      } else {
+                        Navigator.pop(context);
+                        return;
+                      }
+                    },
                   ),
                 ],
               ),
